@@ -9,6 +9,7 @@ const messageSchema = new mongoose.Schema(
     reportedFirstName: String,
     reportedLastName: String,
     reason: String,
+    deleted: { type: Boolean, default: false },
   },
   {
     timestamps: true,
