@@ -19,8 +19,6 @@ router.post("/", async (req, res, next) => {
     place_latitude,
     donations,
     interestedUsers,
-    reported_pets,
-    reported_users,
   } = req.body;
   try {
     const postUser = await register(
@@ -36,9 +34,7 @@ router.post("/", async (req, res, next) => {
       place_longitude,
       place_latitude,
       donations,
-      interestedUsers,
-      reported_pets,
-      reported_users
+      interestedUsers
     );
 
     let transporter = nodemailer.createTransport({

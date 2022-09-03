@@ -7,6 +7,7 @@ const messageSchema = new mongoose.Schema(
     informerLastName: String,
     reportedPetId: String,
     reason: String,
+    deleted: { type: Boolean, default: false },
   },
   {
     timestamps: true,

@@ -1,52 +1,33 @@
 const { Router } = require("express");
-const pets = require("./gets");
-const users = require("./gets");
-const userId = require("./gets");
-const petId = require("./gets");
+const gets = require("./gets");
 const filters = require("./filters");
 const register = require("./register");
 const login = require("./login");
 const loginGoogle = require("./googlelogin");
-const likes = require("./patch");
-const router = Router();
-const postPet = require("./posts");
-const patchPet = require("./patch");
-const patchUser = require("./patch");
-const adopt = require("./patch");
+const patches = require("./patch");
+const posts = require("./posts");
 const adoptionMail = require("./send-email");
 const conversations = require("./conversations");
 const messages = require("./messages");
-const postImage = require("./posts");
-const payment = require("./payment");
-const responsePayment = require("./payment");
+const payments = require("./payment");
 const forgotPassword = require("./forgotPassword");
 const resetPassword = require("./resetPassword");
-const reportPet = require("./reports");
-const reportUser = require("./reports");
+const reports = require("./reports");
 const errorHandler = require("../utils/middlewares/errorHandler");
-const interestedUsers = require("./patch");
+const router = Router();
 
 router.use(
   "/home",
-  pets,
-  users,
-  userId,
-  petId,
+  gets,
   filters,
-  postPet,
-  patchPet,
-  patchUser,
-  postImage,
+  posts,
   conversations,
   messages,
-  adopt,
-  likes,
-  reportPet,
-  reportUser,
-  interestedUsers
+  patches,
+  reports
 );
 
-router.use("/linkpayment", payment, responsePayment);
+router.use("/linkpayment", payments);
 router.use("/register", register);
 router.use("/login", login);
 router.use("/", loginGoogle);
