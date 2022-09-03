@@ -35,7 +35,7 @@ router.post("/forgotpassword", async (req, res, next) => {
             from: "'HappyTails'<HAppYTAil5@hotmail.com>",
             to: `${user.email}`,
             subject: "Recuperar contraseña en Happy Tails",
-            text: `http://localhost:3000/${emailPort}/resetpassword/${id}/${token}`
+            text: `https://happytails.vercel.app/${emailPort}/resetpassword/${id}/${token}`
         }
         transporter.sendMail(mailOptions, (err, response) => {
             if (err) {

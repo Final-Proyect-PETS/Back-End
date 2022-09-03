@@ -18,7 +18,7 @@ const serverr = http.createServer(server);
 const { Server } = require("socket.io");
 const io = new Server(serverr, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://happytails.vercel.app",
     methods: ["GET", "POST"],
     allowedHeaders: [],
     credentials: true,

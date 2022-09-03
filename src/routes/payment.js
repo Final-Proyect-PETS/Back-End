@@ -31,9 +31,9 @@ router.get("/:idDonor/:donationAmount", verifyToken, async (req, res, next) => {
       ],
       external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
       back_urls: {
-        success: `http://localhost:3001/linkpayment/feedback/${idDonor}/${donationAmount}`,
-        failure: `http://localhost:3001/linkpayment/feedback/${idDonor}/${donationAmount}`,
-        pending: `http://localhost:3001/linkpayment/feedback/${idDonor}/${donationAmount}`,
+        success: `https://happytails2.herokuapp.com/linkpayment/feedback/${idDonor}/${donationAmount}`,
+        failure: `https://happytails2.herokuapp.com/linkpayment/feedback/${idDonor}/${donationAmount}`,
+        pending: `https://happytails2.herokuapp.com/linkpayment/feedback/${idDonor}/${donationAmount}`,
       },
       payer: {
         name: oneUser.first_name,
@@ -82,12 +82,12 @@ router.get("/feedback/:idDonor/:donationAmount", async (req, res, next) => {
         donationAmount: transaction_amount,
       });
       await oneUser.save();
-      return res.redirect("http://localhost:3000/donationsuccessful");
+      return res.redirect("https://happytails.vercel.app/donationsuccessful");
     }
     if (status === "in_process" || status === "pending")
-      return res.redirect("http://localhost:3000/donationpending");
+      return res.redirect("https://happytails.vercel.app/donationpending");
     if (status === "rejected")
-      return res.redirect("http://localhost:3000/donationcancelled");
+      return res.redirect("https://happytails.vercel.app/donationcancelled");
   } catch (error) {
     next(error);
   }
