@@ -86,7 +86,7 @@ router.post("/logingoogle", async (req, res, next) => {
             }
           });
         }
-      });
+      }).catch(err => next(err));
   } catch (err) {
     next(err);
   }
