@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { filtro } = require("../utils/controllers/filters.js");
 const verifyToken = require("../utils/middlewares/validateToken.js");
-
+require("dotenv").config();
 const router = Router();
 
 router.get("/filters", verifyToken, async (req, res, next) => {

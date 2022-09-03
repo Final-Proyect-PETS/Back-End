@@ -4,6 +4,7 @@ const verifyToken = require("../utils/middlewares/validateToken");
 const router = Router();
 const User = require("../models/users");
 const axios = require("axios");
+require("dotenv").config();
 
 router.get("/:idDonor/:donationAmount", verifyToken, async (req, res, next) => {
   const { idDonor, donationAmount } = req.params;

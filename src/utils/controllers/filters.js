@@ -1,5 +1,6 @@
 const Pets = require("../../models/pets");
 const connection = require("../../db");
+require("dotenv").config();
 
 async function filtro(
   age,

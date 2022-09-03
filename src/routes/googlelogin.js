@@ -4,11 +4,10 @@ const router = Router();
 const User = require("../models/users");
 const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
+require("dotenv").config();
 const nodemailer = require("nodemailer");
 const { NMAILER_PASSWORD2 } = process.env;
-const client = new OAuth2Client(
-  process.env.O_AUTH_CLIENT
-);
+const client = new OAuth2Client("1066896459343-34h3crloulb8su22sfl5l4ep4pqv2bud.apps.googleusercontent.com");
 
 router.post("/logingoogle", async (req, res, next) => {
   const { tokenId } = req.body;
@@ -16,8 +15,7 @@ router.post("/logingoogle", async (req, res, next) => {
     client
       .verifyIdToken({
         idToken: tokenId,
-        audience:
-          process.env.O_AUTH_CLIENT,
+        audience: "1066896459343-34h3crloulb8su22sfl5l4ep4pqv2bud.apps.googleusercontent.com",
       })
       .then((response) => {
         const { email_verified, given_name, family_name, email, name } =
@@ -44,7 +42,7 @@ router.post("/logingoogle", async (req, res, next) => {
                     last_name: family_name,
                     email: email,
                     username: name,
-                  });let transporter = nodemailer.createTransport({
+                  }); let transporter = nodemailer.createTransport({
                     host: "smtp.gmail.com",
                     port: 587,
                     secure: false,
@@ -56,7 +54,7 @@ router.post("/logingoogle", async (req, res, next) => {
                       rejectUnauthorized: false,
                     },
                   });
-              
+
                   let contentHTML = `
                   <img src = "https://cdn-icons-png.flaticon.com/512/194/194279.png" style="width:100px;"/>
                 
@@ -64,8 +62,8 @@ router.post("/logingoogle", async (req, res, next) => {
                   🐻 Gracias por haber elegido Happy Tails para tus compañeros animales.🐵
                         🐈‍⬛Deseamos que todas tus mascotas encuentren su cola feliz.🐶 
                   Atentamente HT`;
-              
-                   await transporter.sendMail({
+
+                  await transporter.sendMail({
                     from: "'HappyTails'<happytailshp@gmail.com>",
                     to: email,
                     subject: "Bienvenido",
@@ -77,7 +75,7 @@ router.post("/logingoogle", async (req, res, next) => {
                     { id: newUser._id },
                     process.env.SECRET_KEY
                   );
-                  
+
                   res
                     .header("token", token)
                     .json({ error: null, data: { token }, id: { id } });

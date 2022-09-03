@@ -1,4 +1,5 @@
 const User = require("../../models/users");
+require("dotenv").config();
 
 async function register(
   first_name,

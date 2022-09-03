@@ -1,6 +1,7 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const User = require("../../models/users");
+require("dotenv").config();
 
 async function login(email, password) {
   const user = await User.findOne({ email: email });

@@ -1,6 +1,7 @@
 const User = require("../../models/users");
 const Pets = require("../../models/pets");
 const connection = require("../../db");
+require("dotenv").config();
 
 const patchPet = async (
   id,

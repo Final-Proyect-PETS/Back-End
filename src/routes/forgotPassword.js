@@ -4,7 +4,6 @@ const User = require("../models/users")
 const nodemailer = require("nodemailer")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
-const { NMAILER_PASSWORD } = process.env
 
 
 router.post("/forgotpassword", async (req, res, next) => {
@@ -28,7 +27,7 @@ router.post("/forgotpassword", async (req, res, next) => {
             service: "hotmail",
             auth: {
                 user: "HAppYTAil5@hotmail.com",
-                pass: `${NMAILER_PASSWORD}`
+                pass: `${process.env.NMAILER_PASSWORD}`
             },
         })
         const emailPort = 587

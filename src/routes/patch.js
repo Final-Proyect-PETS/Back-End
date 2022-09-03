@@ -1,4 +1,5 @@
 const { Router } = require("express");
+require("dotenv").config();
 const User = require("../models/users");
 const Pets = require("../models/pets");
 const {
@@ -9,7 +10,6 @@ const {
 const { send_mail } = require("../routes/send-email");
 const verifyToken = require("../utils/middlewares/validateToken");
 const nodemailer = require("nodemailer");
-const { NMAILER_PASSWORD2 } = process.env;
 const router = Router();
 
 router.patch("/pets/:id", verifyToken, async (req, res, next) => {
@@ -131,7 +131,7 @@ router.patch("/adopt", verifyToken, async (req, res, next) => {
         service: "smtp.gmail.com",
         auth: {
           user: "happytailshp@gmail.com",
-          pass: `${NMAILER_PASSWORD2}`,
+          pass: `${process.env.NMAILER_PASSWORD2}`,
         },
       });
       const mailOptions = {
@@ -156,7 +156,7 @@ router.patch("/adopt", verifyToken, async (req, res, next) => {
         service: "smtp.gmail.com",
         auth: {
           user: "happytailshp@gmail.com",
-          pass: `${NMAILER_PASSWORD2}`,
+          pass: `${process.env.NMAILER_PASSWORD2}`,
         },
       });
       const mailOptions2 = {
@@ -223,7 +223,7 @@ router.patch("/interestedUsers", verifyToken, async (req, res, next) => {
         secure: false,
         auth: {
           user: "happytailshp@gmail.com",
-          pass: `${NMAILER_PASSWORD2}`,
+          pass: `${process.env.NMAILER_PASSWORD2}`,
         },
         tls: {
           rejectUnauthorized: false,

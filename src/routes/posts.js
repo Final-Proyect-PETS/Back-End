@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { postPet } = require("../utils/controllers/posts");
 const verifyToken = require("../utils/middlewares/validateToken");
+require("dotenv").config();
 const cloudinary = require("../utils/cloudinary");
 const upload = require("../utils/multer");
 const router = Router();

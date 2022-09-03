@@ -1,6 +1,7 @@
 const Pets = require("../../models/pets");
 const User = require("../../models/users");
 const connection = require("../../db");
+require("dotenv").config();
 
 const postPet = async (
   id,
