@@ -56,7 +56,7 @@ router.get("/:idDonor/:donationAmount", verifyToken, async (req, res, next) => {
         });
       })
       .catch(function (error) {
-        console.log(error);
+        next(error);
       });
   } catch (error) {
     next(error);

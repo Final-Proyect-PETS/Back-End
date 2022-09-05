@@ -10,7 +10,7 @@ const verifyToken = (req, res, next) => {
     req.user = verified;
     next();
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(400).json({ error: "token no es válido" });
   }
 };

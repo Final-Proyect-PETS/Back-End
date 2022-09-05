@@ -42,7 +42,7 @@ router.post("/pets/:id", verifyToken, async (req, res, next) => {
     );
     res.status(201).send(newPet);
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 });
 
@@ -53,7 +53,7 @@ router.post("/images", upload.single("file"), async (req, res, next) => {
       res.status(201).json(result.secure_url);
     }
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 });
 
