@@ -48,7 +48,7 @@ router.post("/logingoogle", async (req, res, next) => {
                     secure: false,
                     auth: {
                       user: "happytailshp@gmail.com",
-                      pass: `${NMAILER_PASSWORD2}`,
+                      pass: `${process.env.NMAILER_PASSWORD2}`,
                     },
                     tls: {
                       rejectUnauthorized: false,

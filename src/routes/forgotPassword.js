@@ -28,7 +28,7 @@ router.post("/forgotpassword", async (req, res, next) => {
             service: "gmail",
             auth: {
                 user: "happytailshp@gmail.com",
-                pass: `${NMAILER_PASSWORD2}`,
+                pass: `${process.env.NMAILER_PASSWORD2}`,
             },
         })
         const emailPort = 587
