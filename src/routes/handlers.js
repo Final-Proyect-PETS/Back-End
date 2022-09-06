@@ -3,6 +3,7 @@ const verifyToken = require("../utils/middlewares/validateToken");
 const petReport = require("../models/petReports");
 const userReport = require("../models/userReports");
 const User = require("../models/users");
+const nodemailer = require("nodemailer");
 const Pets = require("../models/pets");
 const router = Router();
 
