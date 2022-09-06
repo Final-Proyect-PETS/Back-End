@@ -29,10 +29,12 @@ router.post("/logingoogle", async (req, res, next) => {
                 err,
               });
             } else {
-              if (user) {
-                if (user.deleted === true){
+                  if (user.deleted === true){
+                    console.log("entre al if")
+                    console.log(user.deleted)
                   return res.status(403).json({msg : "usuario baneado"});
                 }
+              if (user) {
                 let id = user._id;
                 const token = jwt.sign({ id: id }, process.env.SECRET_KEY);
                 res
