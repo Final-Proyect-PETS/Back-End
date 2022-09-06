@@ -18,11 +18,11 @@ router.patch("/pet", async (req, res, next) => {
     });
     ban //OJO: ver si desde el front llega como booleano o como string
       ? res
-          .status(201)
-          .json(arrayPets.sort((a, b) => b.createdAt - a.createdAt))
+        .status(201)
+        .json(arrayPets.sort((a, b) => b.createdAt - a.createdAt))
       : res
-          .status(201)
-          .json(arrayPets.sort((a, b) => b.createdAt - a.createdAt));
+        .status(201)
+        .json(arrayPets.sort((a, b) => b.createdAt - a.createdAt));
   } catch (error) {
     next(error);
   }
@@ -34,6 +34,26 @@ router.patch("/user", async (req, res, next) => {
     const oneUser = await User.findOne({ _id: id });
     oneUser.deleted = ban;
     await oneUser.save();
+    const transporter = nodemailer.createTransport({
+      service: "smtp.gmail.com",
+      auth: {
+        user: "happytailshp@gmail.com",
+        pass: `${process.env.NMAILER_PASSWORD2}`,
+      },
+    });
+    const mailOptions = {
+      from: "'HappyTails'<happytailshp@gmail.com>",
+      to: `${oneUser.email}`,
+      subject: "Suspension de cuenta!",
+      text: `Su cuenta ha sido suspendia debido a una infraccion de nuestros terminos y condiciones`,
+    };
+    transporter.sendMail(mailOptions, (err, response) => {
+      if (err) {
+        next("Ha ocurrido un error", err);
+      } else {
+        console.error("Response", response);
+      }
+    });
     const arrayUsers = await User.find({ deleted: false });
     ban //OJO: ver si desde el front llega como booleano o como string
       ? res.status(201).json(arrayUsers)
