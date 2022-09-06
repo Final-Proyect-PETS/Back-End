@@ -24,15 +24,16 @@ router.post("/forgotpassword", async (req, res, next) => {
         const token = jwt.sign({ id: id }, process.env.SECRET_KEY, { expiresIn: "1h" });
         res.json({ error: null, data: { token }, id: { id } });
         const transporter = nodemailer.createTransport({
-            service: "hotmail",
+            host: "smtp.gmail.com",
+            service: "gmail",
             auth: {
-                user: "HAppYTAil5@hotmail.com",
-                pass: `${process.env.NMAILER_PASSWORD}`
+                user: "happytailshp@gmail.com",
+                pass: `${process.env.NMAILER_PASSWORD2}`,
             },
         })
         const emailPort = 587
         const mailOptions = {
-            from: "'HappyTails'<HAppYTAil5@hotmail.com>",
+            from: "'HappyTails'<happytailshp@gmail.com>",
             to: `${user.email}`,
             subject: "Recuperar contraseña en Happy Tails",
             text: `https://happytails.vercel.app/${emailPort}/resetpassword/${id}/${token}`

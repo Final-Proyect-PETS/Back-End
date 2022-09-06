@@ -18,7 +18,7 @@ router.post("/conversations", verifyToken, async (req, res, next) => {
       const savedConversation = await newConversation.save();
       res.status(200).json(savedConversation)
     } catch (error) {
-      console.log(error)
+      next(error)
     }
   }
   else {

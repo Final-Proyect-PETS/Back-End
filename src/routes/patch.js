@@ -63,7 +63,6 @@ router.patch("/pets/:id", verifyToken, async (req, res, next) => {
 
 router.patch("/users/:id", verifyToken, async (req, res, next) => {
   const _id = req.params.id;
-  console.log(_id);
   const {
     first_name,
     last_name,
@@ -80,7 +79,6 @@ router.patch("/users/:id", verifyToken, async (req, res, next) => {
     place_latitude,
     blogmessage,
   } = req.body;
-  console.log(req.body);
   try {
     const userPatch = await patchUser(
       _id,
@@ -99,7 +97,6 @@ router.patch("/users/:id", verifyToken, async (req, res, next) => {
       place_latitude,
       blogmessage
     );
-    console.log(userPatch);
     res.status(201).send(userPatch);
   } catch (error) {
     next(error);
@@ -124,8 +121,6 @@ router.patch("/adopt", verifyToken, async (req, res, next) => {
     const newpet = await Pets.findOne({ _id: petId });
     const oldOwner = await User.findOne({ _id: ownerId });
     const newOwner = await User.findOne({ _id: userId });
-    console.log(oldOwner.email);
-    console.log(newOwner.email);
     try {
       const transporter = nodemailer.createTransport({
         service: "smtp.gmail.com",
@@ -315,7 +310,6 @@ router.patch("/likes", verifyToken, async (req, res, next) => {
   try {
     const { petId, userId, ownerId } = req.body;
     let user = await User.findOne({ _id: ownerId });
-    console.log(req.body);
     if (
       user.likesPets.filter((e) => e.userId === userId && e.petId === petId)
         .length
@@ -344,8 +338,6 @@ router.patch("/likepets", verifyToken, async (req, res, next) => {
     if (!petPatch.likes.includes(likeName)) {
       await petPatch.update({ $push: { likes: likeName } });
     } else await petPatch.update({ $pull: { likes: likeName } });
-
-    console.log(petPatch.likes);
     res.status(201).send(petPatch);
   } catch (error) {
     next(error);
