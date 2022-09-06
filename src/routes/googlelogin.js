@@ -25,7 +25,7 @@ router.post("/logingoogle", async (req, res, next) => {
                  if (user.deleted === true){
                     console.log("entre al if")
                     console.log(user.deleted)
-                  return res.status(403).send("usuario baneado bro");
+                  return res.status(403).json({msg: "usuario baneado bro"});
                 }
             if (err) {
               return res.status(400).json({
