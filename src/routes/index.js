@@ -13,6 +13,7 @@ const payments = require("./payment");
 const forgotPassword = require("./forgotPassword");
 const resetPassword = require("./resetPassword");
 const reports = require("./reports");
+const handlers = require("./handlers");
 const errorHandler = require("../utils/middlewares/errorHandler");
 const router = Router();
 
@@ -33,6 +34,7 @@ router.use("/login", login);
 router.use("/", loginGoogle);
 router.use("/mail", adoptionMail);
 router.use("/", forgotPassword, resetPassword);
+router.use("/handle", handlers);
 router.use(errorHandler);
 
 module.exports = router;
