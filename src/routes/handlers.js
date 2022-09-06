@@ -57,8 +57,7 @@ router.patch("/user", async (req, res, next) => {
     });
     const arrayUsers = await User.find({ deleted: false });
     ban //OJO: ver si desde el front llega como booleano o como string
-      ? res.status(201).json(arrayUsers)
-      : res.status(201).json(arrayUsers);
+    res.status(201).json(arrayUsers)
   } catch (error) {
     next(error);
   }
