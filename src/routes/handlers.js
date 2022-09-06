@@ -1,3 +1,4 @@
+require("dotenv").config()
 const { Router } = require("express");
 const verifyToken = require("../utils/middlewares/validateToken");
 const petReport = require("../models/petReports");
@@ -36,12 +37,13 @@ router.patch("/user", async (req, res, next) => {
     oneUser.deleted = ban;
     await oneUser.save();
     const transporter = nodemailer.createTransport({
-      service: "smtp.gmail.com",
+      host: "smtp.gmail.com",
+      service: "gmail",
       auth: {
         user: "happytailshp@gmail.com",
         pass: `${process.env.NMAILER_PASSWORD2}`,
       },
-    });
+    })
     const mailOptions = {
       from: "'HappyTails'<happytailshp@gmail.com>",
       to: `${oneUser.email}`,
