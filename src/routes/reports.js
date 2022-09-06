@@ -8,7 +8,7 @@ const verifyToken = require("../utils/middlewares/validateToken");
 
 const router = Router();
 
-router.post("/reportpet", verifyToken, async (req, res, next) => {
+router.post("/reportpet", async (req, res, next) => {
   const { informerId, reportedPetId, reason } = req.body;
   try {
     const oneUser = await User.findOne({ _id: informerId });
@@ -30,7 +30,7 @@ router.post("/reportpet", verifyToken, async (req, res, next) => {
   }
 });
 
-router.post("/reportuser", verifyToken, async (req, res, next) => {
+router.post("/reportuser", async (req, res, next) => {
   const { informerId, reportedUserId, reason } = req.body;
   try {
     const oneInformer = await User.findOne({ _id: informerId });
@@ -54,7 +54,7 @@ router.post("/reportuser", verifyToken, async (req, res, next) => {
   }
 });
 
-router.get("/reportpet", verifyToken, async (req, res, next) => {
+router.get("/reportpet", async (req, res, next) => {
   try {
     const arrayReportedPets = await petReport.find();
     res.status(201).json(arrayReportedPets);
@@ -63,7 +63,7 @@ router.get("/reportpet", verifyToken, async (req, res, next) => {
   }
 });
 
-router.get("/reportuser", verifyToken, async (req, res, next) => {
+router.get("/reportuser", async (req, res, next) => {
   try {
     const arrayReportedUsers = await userReport.find();
     res.status(201).json(arrayReportedUsers);

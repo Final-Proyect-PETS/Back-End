@@ -18,7 +18,7 @@ const serverr = http.createServer(server);
 const { Server } = require("socket.io");
 const io = new Server(serverr, {
   cors: {
-    origin: "https://happytails.vercel.app",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
     allowedHeaders: [],
     credentials: true,
@@ -32,7 +32,6 @@ let users = [];
 const addUser = (id, socketId) => {
   !users.some((user) => user.id === id) && users.push({ id, socketId });
 };
-
 
 const removeUser = (socketId) => {
   users = users.filter((user) => user.socketId !== socketId);
@@ -67,4 +66,6 @@ io.on("connection", (socket) => {
 //ver forma de hacer un force true para mongoose
 
 connection();
-serverr.listen(process.env.PORT || 3001, () => console.log(`listening at port ${process.env.PORT}`));
+serverr.listen(process.env.PORT || 3001, () =>
+  console.log(`listening at port ${process.env.PORT}`)
+);
