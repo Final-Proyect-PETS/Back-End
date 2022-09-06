@@ -50,15 +50,14 @@ router.patch("/user", async (req, res, next) => {
     };
     transporter.sendMail(mailOptions, (err, response) => {
       if (err) {
-        next("Ha ocurrido un error", err);
+        console.error("Ha ocurrido un error", err);
       } else {
-        console.error("Response", response);
+        console.log("Response", response);
       }
     });
     const arrayUsers = await User.find({ deleted: false });
     ban //OJO: ver si desde el front llega como booleano o como string
-      ? res.status(201).json(arrayUsers)
-      : res.status(201).json(arrayUsers);
+    res.status(201).json(arrayUsers)
   } catch (error) {
     next(error);
   }
