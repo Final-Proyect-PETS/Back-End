@@ -19,6 +19,7 @@ router.post("/forgotpassword", async (req, res, next) => {
                 message: "No existe ese email"
             })
         }
+
         let id = user._id;
         const token = jwt.sign({ id: id }, process.env.SECRET_KEY, { expiresIn: "1h" });
         res.json({ error: null, data: { token }, id: { id } });
@@ -41,8 +42,8 @@ router.post("/forgotpassword", async (req, res, next) => {
             if (err) {
                 console.error("Ha ocurrido un error", err);
             } else {
-                console.log("Response", response);
-                res.status(200).redirect("https://happytails.vercel.app", "redireccionado wachin")
+                console.error("Response", response);
+                res.status(200).json("El email para la reucperacion ha sido enviado")
             }
         })
     } catch (error) {
