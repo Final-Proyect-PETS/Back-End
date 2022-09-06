@@ -23,8 +23,6 @@ router.post("/logingoogle", async (req, res, next) => {
         if (email_verified) {
           User.findOne({ email }).exec(async (err, user) => {
                  if (user.deleted === true){
-                    console.log("entre al if")
-                    console.log(user.deleted)
                   return res.status(403).json({msg: "Usuario baneado"});
                 }
             if (err) {
