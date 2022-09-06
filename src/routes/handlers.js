@@ -50,9 +50,9 @@ router.patch("/user", async (req, res, next) => {
     };
     transporter.sendMail(mailOptions, (err, response) => {
       if (err) {
-        next("Ha ocurrido un error", err);
+        console.error("Ha ocurrido un error", err);
       } else {
-        console.error("Response", response);
+        console.log("Response", response);
       }
     });
     const arrayUsers = await User.find({ deleted: false });
