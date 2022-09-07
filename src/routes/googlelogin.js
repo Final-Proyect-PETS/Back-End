@@ -39,7 +39,7 @@ router.post("/logingoogle", async (req, res, next) => {
                     .header("token", token)
                     .json({ error: null, data: { token }, id: { id } });
                 } 
-                else if (user.deleted === true) {
+                else if (user && user.deleted === true) {
                   return res.status(403).send("Usuario baneado");
                 }
                 else {
