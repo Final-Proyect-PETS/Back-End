@@ -6,7 +6,10 @@ const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
 require("dotenv").config();
 const nodemailer = require("nodemailer");
-const client = new OAuth2Client("1066896459343-34h3crloulb8su22sfl5l4ep4pqv2bud.apps.googleusercontent.com");
+const { NMAILER_PASSWORD2 } = process.env;
+const client = new OAuth2Client(
+  "1066896459343-34h3crloulb8su22sfl5l4ep4pqv2bud.apps.googleusercontent.com"
+);
 
 router.post("/logingoogle", async (req, res, next) => {
   const { tokenId } = req.body;
@@ -14,7 +17,8 @@ router.post("/logingoogle", async (req, res, next) => {
     client
       .verifyIdToken({
         idToken: tokenId,
-        audience: "1066896459343-34h3crloulb8su22sfl5l4ep4pqv2bud.apps.googleusercontent.com",
+        audience:
+          "1066896459343-34h3crloulb8su22sfl5l4ep4pqv2bud.apps.googleusercontent.com",
       })
       .then((response) => {
         const { email_verified, given_name, family_name, email, name } =
@@ -28,21 +32,25 @@ router.post("/logingoogle", async (req, res, next) => {
                 err,
               });
             } else {
-              if (user) {
-                if (user.deleted === true) throw new Error("Usuario baneado")
+              if (user && user.deleted === false) {
                 let id = user._id;
                 const token = jwt.sign({ id: id }, process.env.SECRET_KEY);
                 res
                   .header("token", token)
                   .json({ error: null, data: { token }, id: { id } });
-              } else {
+              }
+              else if (user && user.deleted === true) {
+                return res.status(403).send("Usuario baneado");
+              }
+              else {
                 try {
                   let newUser = new User({
                     first_name: given_name,
                     last_name: family_name,
                     email: email,
                     username: name,
-                  }); let transporter = nodemailer.createTransport({
+                  });
+                  let transporter = nodemailer.createTransport({
                     host: "smtp.gmail.com",
                     port: 587,
                     secure: false,
@@ -86,7 +94,8 @@ router.post("/logingoogle", async (req, res, next) => {
             }
           });
         }
-      }).catch(err => next(err));
+      })
+      .catch((err) => next(err));
   } catch (err) {
     next(err);
   }
