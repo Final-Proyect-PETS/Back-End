@@ -29,7 +29,7 @@ router.patch("/pet", async (req, res, next) => {
     next(error);
   }
 });
-
+//
 router.patch("/user", async (req, res, next) => {
   try {
     const { id, ban } = req.body;
