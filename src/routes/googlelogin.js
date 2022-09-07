@@ -25,9 +25,6 @@ router.post("/logingoogle", async (req, res, next) => {
           response.payload;
         if (email_verified) {
           User.findOne({ email }).exec(async (err, user) => {
-            if (user.deleted && user.deleted === true) {
-              return res.status(403).send("Usuario baneado");
-            } else {
               if (err) {
                 return res.status(400).json({
                   error:
@@ -35,13 +32,17 @@ router.post("/logingoogle", async (req, res, next) => {
                   err,
                 });
               } else {
-                if (user) {
+                if (user && user.deleted === false) {
                   let id = user._id;
                   const token = jwt.sign({ id: id }, process.env.SECRET_KEY);
                   res
                     .header("token", token)
                     .json({ error: null, data: { token }, id: { id } });
-                } else {
+                } 
+                else if (user.deleted === true) {
+                  return res.status(403).send("Usuario baneado");
+                }
+                else {
                   try {
                     let newUser = new User({
                       first_name: given_name,
@@ -91,7 +92,6 @@ router.post("/logingoogle", async (req, res, next) => {
                   }
                 }
               }
-            }
           });
         }
       })
