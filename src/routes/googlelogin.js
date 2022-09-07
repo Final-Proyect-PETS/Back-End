@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
 require("dotenv").config();
 const nodemailer = require("nodemailer");
-const { NMAILER_PASSWORD2 } = process.env;
 const client = new OAuth2Client("1066896459343-34h3crloulb8su22sfl5l4ep4pqv2bud.apps.googleusercontent.com");
 
 router.post("/logingoogle", async (req, res, next) => {
