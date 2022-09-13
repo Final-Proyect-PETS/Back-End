@@ -115,6 +115,7 @@ const getProduct = async (name) => {
       path: "user",
       match: { deleted: false }
     })
+    console.log(arrayProduct)
     if (name) {
       let productFound = arrayProduct.filter(
         p =>
@@ -124,7 +125,11 @@ const getProduct = async (name) => {
       if (productFound.length > 0) return productFound
       if (productFound.length = 0) {
         return "No se encontraron resultados"
-      } else return arrayProduct
+      } else {
+        return arrayProduct
+      }
+    } else {
+      return arrayProduct
     }
   } catch (error) {
     console.error(error)

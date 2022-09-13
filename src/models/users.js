@@ -40,6 +40,7 @@ const usersSchema = new Schema(
     isAdmin: { type: Boolean, default: false },
     reviews: Number,
     pets: [{ type: mongoose.Schema.ObjectId, ref: "Pet" }],
+    products: [{ type: mongoose.Schema.ObjectId, ref: "Product" }],
     interestedUsers: Array,
     likesPets: Array,
     donations: Array,

@@ -15,6 +15,7 @@ const resetPassword = require("./resetPassword");
 const reports = require("./reports");
 const handlers = require("./handlers");
 const errorHandler = require("../utils/middlewares/errorHandler");
+const postProduct = require("./posts");
 const router = Router();
 
 router.use(
@@ -25,7 +26,8 @@ router.use(
   conversations,
   messages,
   patches,
-  reports
+  reports,
+  postProduct
 );
 
 router.use("/linkpayment", payments);
