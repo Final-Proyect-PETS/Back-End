@@ -115,7 +115,6 @@ const getProduct = async (name) => {
       path: "user",
       match: { deleted: false }
     })
-    console.log(arrayProduct)
     if (name) {
       let productFound = arrayProduct.filter(
         p =>

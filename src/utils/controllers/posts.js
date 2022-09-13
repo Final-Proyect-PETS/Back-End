@@ -64,7 +64,6 @@ const postProduct = async (id, name, price, image, stock, description, place, ca
   }
   try {
     const foundUser = await User.findOne({ _id: id })
-    console.log(foundUser)
     const newProduct = new Product({
       name,
       price,
@@ -77,13 +76,9 @@ const postProduct = async (id, name, price, image, stock, description, place, ca
       deleted,
       user: foundUser._id
     })
-    console.log("0");
     await newProduct.save()
-    console.log(newProduct);
     foundUser.products.push(newProduct._id)
-    console.log("2");
     await foundUser.save()
-    console.log("3");
     return newProduct
   } catch (error) {
     console.error(error)
