@@ -4,6 +4,8 @@ const {
   getUsers,
   userId,
   petId,
+  getProduct,
+  getProductId,
   sendNotification,
 } = require("../utils/controllers/gets.js");
 const verifyToken = require("../utils/middlewares/validateToken");
@@ -46,4 +48,21 @@ router.get("/pets/:id", verifyToken, async (req, res, next) => {
   }
 });
 
+router.get("/products", verifyToken, async (req, res, next) => {
+  try {
+    const product = await getProduct(req.params.name)
+    res.status(200).send(product)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get("/products/:id", verifyToken, async (req, res, next) => {
+  try {
+    const productId = await getProductId(req.params.id)
+    res.status(200).send(productId)
+  } catch (error) {
+    next(error)
+  }
+})
 module.exports = router;

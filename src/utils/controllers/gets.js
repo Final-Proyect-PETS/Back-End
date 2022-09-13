@@ -1,5 +1,6 @@
 const Pets = require("../../models/pets");
 const User = require("../../models/users");
+const Product = require("../../models/products")
 const connection = require("../../db");
 require("dotenv").config();
 
@@ -102,9 +103,54 @@ const petId = async (id) => {
     console.error(error);
   }
 };
+
+const getProduct = async (name) => {
+  try {
+    connection()
+  } catch (err) {
+    console.error(err)
+  }
+  try {
+    const arrayProduct = await Product.find({ deleted: false }).populate({
+      path: "user",
+      match: { deleted: false }
+    })
+    if (name) {
+      let productFound = arrayProduct.filter(
+        p =>
+          p.name?.toLowerCase().includes(name.toLowerCase()) ||
+          p.place?.toLowerCase().includes(name.toLowerCase())
+      )
+      if (productFound.length > 0) return productFound
+      if (productFound.length = 0) {
+        return "No se encontraron resultados"
+      } else return arrayProduct
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const getProductId = async (id) => {
+  try {
+    connection()
+  } catch (err) {
+    console.error(err)
+  }
+  try {
+    const product = await Product.findOne({ _id: id, deleted: false }).populate({
+      path: "user"
+    });
+    return product;
+  } catch (error) {
+    console.error(error);
+  }
+}
 module.exports = {
   getPets,
   getUsers,
   userId,
   petId,
+  getProduct,
+  getProductId
 };
