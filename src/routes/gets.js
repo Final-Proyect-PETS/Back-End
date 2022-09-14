@@ -50,7 +50,7 @@ router.get("/pets/:id", verifyToken, async (req, res, next) => {
 
 router.get("/products", verifyToken, async (req, res, next) => {
   try {
-    const product = await getProduct(req.params.name)
+    const product = await getProduct(req.query.name)
     res.status(200).send(product)
   } catch (error) {
     next(error)
