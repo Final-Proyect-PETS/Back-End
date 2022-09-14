@@ -94,8 +94,6 @@ router.get("/feedback/:idDonor/:donationAmount", async (req, res, next) => {
   }
 });
 
-
-
 ///////////-------RUTA DE MARKETPLACE---------------------------------------------
 router.get(
   "/market/:idBuyer/:productId/:quantity",
@@ -113,17 +111,21 @@ router.get(
     try {
       const oneUser = await User.findOne({ _id: idBuyer });
       const product = await Product.findOne({ _id: productId });
+      console.log(product.image, "1");
       let preference = {
         items: [
           {
             title: product.name,
             description: product.description,
-            picture_url: String(product.image),/* "https://cdn-icons-png.flaticon.com/512/194/194279.png", */
+            picture_url: String(
+              product.image
+            ) /* "https://cdn-icons-png.flaticon.com/512/194/194279.png", */,
             category_id: product.category,
             quantity: Number(quantity),
             unit_price: Number(product.price),
           },
         ],
+
         external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
         back_urls: {
           success: `https://happytails2.herokuapp.com/linkpayment/feedback2/${productId}/${quantity}`,
@@ -137,7 +139,6 @@ router.get(
           email: "test_user_80969189@testuser.com",
         },
       };
-
       mercadopago.preferences
         .create(preference)
         .then(function (response) {
@@ -169,11 +170,16 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
     const { date_approved, status, status_detail, transaction_amount } =
       donationDetail.data;
     if (status === "approved" && status_detail === "accredited") {
-      const product = await Product.updateOne(
-        { _id: productId },
-        { $set: { stock: product.stock - quantity } }
-      );
+      const product = await Product.find({ _id: productId });
 
+      const producte = await Product.updateOne(
+        { _id: productId },
+        {
+          $set: {
+            stock: product.stock - quantity,
+          },
+        }
+      );
       // product.stock.push({
       //   paymentId: payment_id,
       //   date: date_approved,
@@ -181,7 +187,7 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
       //   statusDetail: status_detail,
       //   donationAmount: transaction_amount,
       // });
-      await product.save();
+      await producte.save();
       return res.redirect("https://happytails.vercel.app/donationsuccessful");
     }
     if (status === "in_process" || status === "pending")
