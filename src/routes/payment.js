@@ -118,7 +118,7 @@ router.get(
             title: product.name,
             description: product.description,
             picture_url: String(
-              product.image
+              product.image.flat()
             ) /* "https://cdn-icons-png.flaticon.com/512/194/194279.png", */,
             category_id: product.category,
             quantity: Number(quantity),
@@ -162,7 +162,7 @@ router.get(
 
 router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
   const { payment_id } = req.query;
-  const { productId ,quantity} = req.params; //el productPrice que traigo por params en esta ruta no lo estoy usando, pero si se lo saco, se rompe todo y no se por qué
+  const { productId, quantity } = req.params; //el productPrice que traigo por params en esta ruta no lo estoy usando, pero si se lo saco, se rompe todo y no se por qué
   try {
     let donationDetail = await axios.get(
       `https://api.mercadopago.com/v1/payments/${payment_id}/?access_token=${process.env.ACCESS_TOKEN}`
@@ -176,7 +176,7 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
         { _id: productId },
         {
           $set: {
-            stock: product.stock - quantity,
+            stock: Number(product.stock) - quantity,
           },
         }
       );
