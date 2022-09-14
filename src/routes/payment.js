@@ -118,9 +118,9 @@ router.get(
           {
             title: product.name,
             description: product.description,
-            picture_url: product.image,
+            picture_url: /* product.image, */"https://cdn-icons-png.flaticon.com/512/194/194279.png",
             category_id: product.category,
-            quantity: quantity,
+            quantity: Number(quantity),
             unit_price: Number(product.price),
           },
         ],
