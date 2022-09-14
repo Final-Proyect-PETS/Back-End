@@ -111,13 +111,17 @@ router.get(
     try {
       const oneUser = await User.findOne({ _id: idBuyer });
       const product = await Product.findOne({ _id: productId });
-      console.log(product.image, "1");
+      console.log(product.image.flat(), "flat0");
+      console.log(product.image.flat(1), "flat1");
+      console.log(product.image.flat(2), "flat2");
+      console.log(product.image[0], "en 0")
+      console.log(product.image[0].flat(), "flat en 0")
       let preference = {
         items: [
           {
             title: product.name,
             description: product.description,
-            picture_url: product.image[0],
+            picture_url: product.image.flat(1),
             category_id: "category123", //ver que es
             quantity: Number(quantity),
             unit_price: Number(product.price),
@@ -174,12 +178,12 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
         { _id: productId },
         {
           $set: {
-            stock: 15,
+            stock: 14,
           },
         }
       );
 
-      await producte.save();
+      // await producte.save();
       return res.redirect("https://happytails.vercel.app/donationsuccessful");
     }
     if (status === "in_process" || status === "pending")
