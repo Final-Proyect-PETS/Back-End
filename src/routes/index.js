@@ -15,8 +15,12 @@ const resetPassword = require("./resetPassword");
 const reports = require("./reports");
 const handlers = require("./handlers");
 const errorHandler = require("../utils/middlewares/errorHandler");
+
 const productsFilters  = require("./productsFilters");
 const email_buy = require("./email_buy")
+
+const postProduct = require("./posts");
+
 const router = Router();
 
 router.use(
@@ -28,7 +32,9 @@ router.use(
   messages,
   patches,
   reports,
-  productsFilters
+  productsFilters,
+  postProduct,
+
 );
 
 

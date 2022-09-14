@@ -4,6 +4,7 @@ const User = require("../../models/users");
 require("dotenv").config();
 
 async function login(email, password) {
+  console.log(email, password);
   const user = await User.findOne({ email: email });
   if (!user) throw new Error("Usuario no encontrado");
   if (user.deleted === true) throw new Error("Usuario baneado")

@@ -1,5 +1,6 @@
 const Pets = require("../../models/pets");
 const User = require("../../models/users");
+const Product = require("../../models/products");
 const connection = require("../../db");
 require("dotenv").config();
 
@@ -54,4 +55,35 @@ const postPet = async (
   }
 };
 
-module.exports = { postPet };
+const postProduct = async (id, name, price, image, stock, description, place, category, type, deleted) => {
+
+  try {
+    connection();
+  } catch (error) {
+    console.error(error);
+  }
+  try {
+    const foundUser = await User.findOne({ _id: id })
+    const newProduct = new Product({
+      name,
+      price,
+      image,
+      stock,
+      description,
+      place,
+      category,
+      type,
+      deleted,
+      user: foundUser._id
+    })
+    await newProduct.save()
+    foundUser.products.push(newProduct._id)
+    await foundUser.save()
+    return newProduct
+  } catch (error) {
+    console.error(error)
+  }
+
+}
+
+module.exports = { postPet, postProduct };

@@ -124,7 +124,11 @@ const getProduct = async (name) => {
       if (productFound.length > 0) return productFound
       if (productFound.length = 0) {
         return "No se encontraron resultados"
-      } else return arrayProduct
+      } else {
+        return arrayProduct
+      }
+    } else {
+      return arrayProduct
     }
   } catch (error) {
     console.error(error)

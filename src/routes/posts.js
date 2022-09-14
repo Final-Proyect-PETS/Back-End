@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { postPet } = require("../utils/controllers/posts");
+const { postPet, postProduct } = require("../utils/controllers/posts");
 const verifyToken = require("../utils/middlewares/validateToken");
 require("dotenv").config();
 const cloudinary = require("../utils/cloudinary");
@@ -56,5 +56,27 @@ router.post("/images", upload.single("file"), async (req, res, next) => {
     next(error);
   }
 });
+
+router.post("/product/:id", verifyToken, async (req, res, next) => {
+  const _id = req.params.id
+  const { name, price, image, stock, description, place, category, type } = req.body
+  try {
+    const newProduct = postProduct(
+      _id,
+      name,
+      price,
+      image,
+      stock,
+      description,
+      place,
+      category,
+      type
+    )
+    res.status(201).send(newProduct)
+  } catch (error) {
+    next(error)
+  }
+
+})
 
 module.exports = router;
