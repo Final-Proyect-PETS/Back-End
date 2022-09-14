@@ -94,9 +94,11 @@ router.get("/feedback/:idDonor/:donationAmount", async (req, res, next) => {
   }
 });
 
+
+
 ///////////-------RUTA DE MARKETPLACE---------------------------------------------
 router.get(
-  "/:idBuyer/:productId/:quantity",
+  "/market/:idBuyer/:productId/:quantity",
   verifyToken,
   async (req, res, next) => {
     const { idBuyer, productId, quantity } = req.params;
