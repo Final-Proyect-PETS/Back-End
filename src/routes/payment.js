@@ -178,9 +178,9 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
         match: { deleted: false },
       });
 
-      var stock = product.stock - quantity;
+      let stock = product.stock - quantity;
 
-      const producte = await Product.updateOne(
+      await Product.updateOne(
         { _id: productId },
         {
           $set: {
@@ -189,13 +189,12 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
         }
       );
 
-      // await producte.save();
-      return res.redirect("https://happytails.vercel.app/donationsuccessful");
+      return res.redirect("https://happytails.vercel.app/purcheasesuccessful");
     }
     if (status === "in_process" || status === "pending")
-      return res.redirect("https://happytails.vercel.app/donationpending");
+      return res.redirect("https://happytails.vercel.app/purcheasepending");
     if (status === "rejected")
-      return res.redirect("https://happytails.vercel.app/donationcancelled");
+      return res.redirect("https://happytails.vercel.app/purcheasecancelled");
   } catch (error) {
     next(error);
   }
