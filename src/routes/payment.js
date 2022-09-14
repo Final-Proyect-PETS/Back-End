@@ -114,7 +114,7 @@ router.get(
       // console.log(product.image.flat(), "flat0");
       // console.log(product.image.flat(1), "flat1");
       // console.log(product.image.flat(2), "flat2");
-      // console.log(product.image[0], "en 0")
+      console.log( String(product.image[0]), "en 0 y string")
       // console.log(product.image[0].flat(), "flat en 0")
       let preference = {
         items: [
@@ -173,12 +173,12 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
       donationDetail.data;
     if (status === "approved" && status_detail === "accredited") {
       const product = await Product.find({ _id: productId });
-
+      var stock = product.stock
       const producte = await Product.updateOne(
         { _id: productId },
         {
           $set: {
-            stock: 14,
+            stock: stock-quantity,
           },
         }
       );
