@@ -105,7 +105,7 @@ router.get(
 
     const id_orden = 1;
 
-    // Agrega credenciales
+    // Agrega credenciales//algo
     mercadopago.configure({
       access_token: process.env.ACCESS_TOKEN,
     });
@@ -118,7 +118,7 @@ router.get(
           {
             title: product.name,
             description: product.description,
-            picture_url: /* product.image, */"https://cdn-icons-png.flaticon.com/512/194/194279.png",
+            picture_url: String(product.image),/* "https://cdn-icons-png.flaticon.com/512/194/194279.png", */
             category_id: product.category,
             quantity: Number(quantity),
             unit_price: Number(product.price),
@@ -171,7 +171,7 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
     if (status === "approved" && status_detail === "accredited") {
       const product = await Product.updateOne(
         { _id: productId },
-        { $set: { stock: stock - quantity } }
+        { $set: { stock: product.stock - quantity } }
       );
 
       // product.stock.push({
