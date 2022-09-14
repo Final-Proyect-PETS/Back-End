@@ -173,13 +173,18 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
     const { date_approved, status, status_detail, transaction_amount } =
       donationDetail.data;
     if (status === "approved" && status_detail === "accredited") {
-      const product = await Product.find({ _id: productId });
-      var stock = Number(product.stock);
+      const product = await Product.findOne({ _id: productId }).populate({
+        path: "user",
+        match: { deleted: false },
+      });
+
+      var stock = product.stock - quantity;
+
       const producte = await Product.updateOne(
         { _id: productId },
         {
           $set: {
-            stock: stock - quantity,
+            stock: stock,
           },
         }
       );
