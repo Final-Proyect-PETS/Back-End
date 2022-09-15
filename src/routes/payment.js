@@ -202,6 +202,7 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
 router.get("/:id", verifyToken, async (req, res, next) => {
   try {
     console.log(req.params)
+    console.log(req.body)
     const { products } = req.body;
     const id_orden = 1;
     console.log(req.params.id, "IDBUYER CAMPEON");
