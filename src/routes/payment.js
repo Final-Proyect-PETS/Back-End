@@ -199,7 +199,7 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
 //----CARRITO---------------------------------------------------------------------------------------------------
 
 ///idUSer/OTroid
-router.get("/cart/:idBuyer", verifyToken, async (req, res, next) => {
+router.get("/cartaaaaaag/:idBuyer", verifyToken, async (req, res, next) => {
   const { idBuyer } = req.params;
   const { products } = req.body;
   const id_orden = 1;
