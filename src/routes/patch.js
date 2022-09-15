@@ -52,7 +52,7 @@ router.patch("/pets/:id", verifyToken, async (req, res, next) => {
       isAdopted,
       deleted,
       interestedUsers,
-      likes
+      likes,
     );
 
     res.status(201).send(petPatch);
