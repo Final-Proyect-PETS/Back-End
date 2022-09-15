@@ -197,12 +197,14 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
 });
 
 //----CARRITO---------------------------------------------------------------------------------------------------
+
+///idUSer/OTroid
 router.get("/cart/:idBuyer", verifyToken, async (req, res, next) => {
   const { idBuyer } = req.params;
   const { products } = req.body;
   const id_orden = 1;
-  console.log(idBuyer,"IDBUYER CAMPEON");
-  console.log(products,"PRODUCTOS LLEGADOS DE CARRITO")
+  console.log(idBuyer, "IDBUYER CAMPEON");
+  console.log(products, "PRODUCTOS LLEGADOS DE CARRITO");
 
   // Agrega credenciales//algo
   mercadopago.configure({
@@ -210,7 +212,7 @@ router.get("/cart/:idBuyer", verifyToken, async (req, res, next) => {
   });
 
   try {
-    const oneUser = await User.findOne({ _id: "63194ab179e07dcc56fc4cfa" });
+    // const oneUser = await User.findOne({ _id: idBuyer });
     // const product = await Product.findOne({ _id: productId });
     // const image = product.image[0];
 
@@ -219,7 +221,7 @@ router.get("/cart/:idBuyer", verifyToken, async (req, res, next) => {
         {
           title: "product.name",
           description: "product.description",
-          picture_url:" image", //no llega nunca a donde va pic_url
+          picture_url: " image", //no llega nunca a donde va pic_url
           category_id: "category123", //ver que es
           quantity: Number(1),
           unit_price: Number(300),
