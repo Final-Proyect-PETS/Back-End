@@ -199,9 +199,9 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
 //----CARRITO---------------------------------------------------------------------------------------------------
 
 ///idUSer/OTroid
-router.get("/cartaaaaaag/:idBuyer", verifyToken, async (req, res, next) => {
+router.get("/cartagit/:idBuyer", verifyToken, async (req, res, next) => {
   const { idBuyer } = req.params;
-  const { products } = req.body;
+  // const { products } = req.body;
   const id_orden = 1;
   console.log(idBuyer, "IDBUYER CAMPEON");
   console.log(products, "PRODUCTOS LLEGADOS DE CARRITO");
