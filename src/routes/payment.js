@@ -114,9 +114,13 @@ router.get(
       // console.log(product.image.flat(), "flat0");
       // console.log(product.image.flat(1), "flat1");
       // console.log(product.image.flat(2), "flat2");
-      console.log(product.image[0].toString(), "en 0 y string");
-      console.log(`${product.image[0].toString()}`, "en 0 y backtick y string");
+      // console.log(product.image[0].toString(), "en 0 y string");
+      // console.log(`${product.image[0].toString()}`, "en 0 y backtick y string");
       // console.log(product.image[0].flat(), "flat en 0")
+      const image = product.image[0];
+      console.log(image, "IMAGENPAPA");
+      console.log(image.toString(), "IMAGENPAPA.tostring");
+      console.log(String(image), "string(IMAGENPAPA");
       let preference = {
         items: [
           {
