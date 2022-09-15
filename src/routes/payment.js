@@ -200,11 +200,12 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
 
 ///idUSer/OTroid
 router.get("/cartagit/:idBuyer", verifyToken, async (req, res, next) => {
-  const { idBuyer } = req.params;
+ 
+
   // const { products } = req.body;
   const id_orden = 1;
-  console.log(idBuyer, "IDBUYER CAMPEON");
-  console.log(products, "PRODUCTOS LLEGADOS DE CARRITO");
+  console.log(req.params, "IDBUYER CAMPEON");
+  // console.log(products, "PRODUCTOS LLEGADOS DE CARRITO");
 
   // Agrega credenciales//algo
   mercadopago.configure({
