@@ -268,13 +268,20 @@ router.get("/:id", verifyToken, async (req, res, next) => {
 router.post("/:id", verifyToken, async (req, res, next) => {
   try {
     console.log(req.params)
-    console.log(req.body)
     const { products } = req.body;
     const id_orden = 1;
     console.log(req.params.id, "IDBUYER CAMPEON");
     console.log(products, "PRODUCTOS LLEGADOS DE CARRITO");
 
     // // Agrega credenciales//algo
+  } catch (error) {
+    next(error)
+  }
+  try {
+    const oneUser = await User.findOne({ _id: req.params.id });
+    let product = req.body
+    let productPrice = product.map(e => e.product.price * e.quantity)
+    res.json(productPrice)
   } catch (error) {
     next(error)
   }
