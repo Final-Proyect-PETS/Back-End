@@ -200,8 +200,6 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
 
 ///idUSer/OTroid
 router.get("/cartagit/:idBuyer", verifyToken, async (req, res, next) => {
- 
-
   // const { products } = req.body;
   const id_orden = 1;
   console.log(req.params, "IDBUYER CAMPEON");
