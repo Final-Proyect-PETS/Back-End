@@ -212,7 +212,7 @@ router.get("/:id", verifyToken, async (req, res, next) => {
       access_token: process.env.ACCESS_TOKEN,
     });
   } catch (error) {
-    next("asda", error)
+    next(error)
   }
   try {
     const oneUser = await User.findOne({ _id: req.params.id });
@@ -260,7 +260,7 @@ router.get("/:id", verifyToken, async (req, res, next) => {
         next(error);
       });
   } catch (error) {
-    next("asd", error);
+    next(error);
   }
 });
 
