@@ -121,12 +121,14 @@ router.get(
       console.log(image, "IMAGENPAPA");
       console.log(image.toString(), "IMAGENPAPA.tostring");
       console.log(String(image), "string(IMAGENPAPA");
+
       let preference = {
         items: [
           {
             title: product.name,
             description: product.description,
-            picture_url: String(product.image[0]),
+            picture_url:
+              "https://res.cloudinary.com/ddotagqdr/image/upload/v1663181677/alxsowdolh3r2ufmvom9.png",
             category_id: "category123", //ver que es
             quantity: Number(quantity),
             unit_price: Number(product.price),
