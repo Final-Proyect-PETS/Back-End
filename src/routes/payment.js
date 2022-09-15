@@ -197,13 +197,13 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
 });
 
 //----carrito
-router.get("/market/cart/:idBuyer/", verifyToken, async (req, res, next) => {
+router.get("/market/cart/:idBuyer", verifyToken, async (req, res, next) => {
   const { idBuyer } = req.params;
   const { products } = req.body;
   const id_orden = 1;
-
-
+  
   console.log(products,"PRODUCTOS LLEGADOS DE CARRITO")
+
   // Agrega credenciales//algo
   mercadopago.configure({
     access_token: process.env.ACCESS_TOKEN,
@@ -228,9 +228,9 @@ router.get("/market/cart/:idBuyer/", verifyToken, async (req, res, next) => {
 
       external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
       back_urls: {
-        success: `https://happytails2.herokuapp.com/linkpayment/feedback2/${productId}/${quantity}`,
-        failure: `https://happytails2.herokuapp.com/linkpayment/feedback2/${productId}/${quantity}`,
-        pending: `https://happytails2.herokuapp.com/linkpayment/feedback2/${productId}/${quantity}`,
+        success: `https://happytails2.herokuapp.com/linkpayment/feedback3/${productId}/${quantity}`,
+        failure: `https://happytails2.herokuapp.com/linkpayment/feedback3/${productId}/${quantity}`,
+        pending: `https://happytails2.herokuapp.com/linkpayment/feedback3/${productId}/${quantity}`,
       },
       payer: {
         name: oneUser.first_name,
@@ -259,7 +259,7 @@ router.get("/market/cart/:idBuyer/", verifyToken, async (req, res, next) => {
   }
 });
 
-router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
+router.get("/feedback3/:productId/:quantity", async (req, res, next) => {
   const { payment_id } = req.query;
   const { productId, quantity } = req.params; //el productPrice que traigo por params en esta ruta no lo estoy usando, pero si se lo saco, se rompe todo y no se por qué
   try {
