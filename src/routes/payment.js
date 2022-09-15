@@ -203,10 +203,6 @@ router.get("/:id", verifyToken, async (req, res, next) => {
   try {
     console.log(req.params)
     console.log(req.body)
-    console.log(req.body.product)
-    console.log(req.body.products)
-    console.log(req.body.pro)
-    console.log(req)
     const { products } = req.body;
     const id_orden = 1;
     console.log(req.params.id, "IDBUYER CAMPEON");
@@ -219,53 +215,68 @@ router.get("/:id", verifyToken, async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+//   try {
+//     const oneUser = await User.findOne({ _id: req.params.id });
+//     const product = await Product.findOne({ _id: productId });
+//     const image = product.image[0];
+
+//     let preference = {
+//       items: [
+//         {
+//           title: "product.name",
+//           description: "product.description",
+//           picture_url: " image", //no llega nunca a donde va pic_url
+//           category_id: "category123", //ver que es
+//           quantity: Number(1),
+//           unit_price: Number(300),
+//         },
+//       ],
+
+//       external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
+//       back_urls: {
+//         success: `https://happytails2.herokuapp.com/linkpayment/feedback3/${productId}/${quantity}`,
+//         failure: `https://happytails2.herokuapp.com/linkpayment/feedback3/${productId}/${quantity}`,
+//         pending: `https://happytails2.herokuapp.com/linkpayment/feedback3/${productId}/${quantity}`,
+//       },
+//       payer: {
+//         name: oneUser.first_name,
+//         surname: oneUser.last_name,
+//         // email: oneUser.email,           // no olvidarse de descomentar este email, el de abajo esta hardcodeado
+//         email: "test_user_80969189@testuser.com",
+//       },
+//     };
+//     mercadopago.preferences
+//       .create(preference)
+//       .then(function (response) {
+//         console.info("respondio");
+//         // Este valor reemplazará el string"<%= global.id %>" en tu HTML
+//         global.id = response.body.id;
+
+//         res.json({
+//           id: global.id,
+//           init_point: response.body.init_point,
+//         });
+//       })
+//       .catch(function (error) {
+//         next(error);
+//       });
+//   } catch (error) {
+//     next(error);
+//   }
+});
+
+router.post("/:id", verifyToken, async (req, res, next) => {
   try {
-    const oneUser = await User.findOne({ _id: req.params.id });
-    const product = await Product.findOne({ _id: productId });
-    const image = product.image[0];
+    console.log(req.params)
+    console.log(req.body)
+    const { products } = req.body;
+    const id_orden = 1;
+    console.log(req.params.id, "IDBUYER CAMPEON");
+    console.log(products, "PRODUCTOS LLEGADOS DE CARRITO");
 
-    let preference = {
-      items: [
-        {
-          title: "product.name",
-          description: "product.description",
-          picture_url: " image", //no llega nunca a donde va pic_url
-          category_id: "category123", //ver que es
-          quantity: Number(1),
-          unit_price: Number(300),
-        },
-      ],
-
-      external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
-      back_urls: {
-        success: `https://happytails2.herokuapp.com/linkpayment/feedback3/${productId}/${quantity}`,
-        failure: `https://happytails2.herokuapp.com/linkpayment/feedback3/${productId}/${quantity}`,
-        pending: `https://happytails2.herokuapp.com/linkpayment/feedback3/${productId}/${quantity}`,
-      },
-      payer: {
-        name: oneUser.first_name,
-        surname: oneUser.last_name,
-        // email: oneUser.email,           // no olvidarse de descomentar este email, el de abajo esta hardcodeado
-        email: "test_user_80969189@testuser.com",
-      },
-    };
-    mercadopago.preferences
-      .create(preference)
-      .then(function (response) {
-        console.info("respondio");
-        // Este valor reemplazará el string"<%= global.id %>" en tu HTML
-        global.id = response.body.id;
-
-        res.json({
-          id: global.id,
-          init_point: response.body.init_point,
-        });
-      })
-      .catch(function (error) {
-        next(error);
-      });
+    // // Agrega credenciales//algo
   } catch (error) {
-    next(error);
+    next(error)
   }
 });
 
