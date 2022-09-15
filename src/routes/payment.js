@@ -199,7 +199,6 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
 //----CARRITO---------------------------------------------------------------------------------------------------
 
 ///idUSer/OTroid
-<<<<<<< HEAD
 router.get("/:id", verifyToken, async (req, res, next) => {
   try {
     console.log(req.params)
@@ -215,17 +214,6 @@ router.get("/:id", verifyToken, async (req, res, next) => {
   } catch (error) {
     next("asda", error)
   }
-=======
-router.get("/cartagit/:idBuyer", verifyToken, async (req, res, next) => {
- 
-
-  // const { products } = req.body;
-  const id_orden = 1;
-  console.log(req.params, "IDBUYER CAMPEON");
-  // console.log(products, "PRODUCTOS LLEGADOS DE CARRITO");
->>>>>>> 4b72bc1c5d4ff95dbcbeaa757ff2fe692741a82e
-
-
   try {
     const oneUser = await User.findOne({ _id: req.params.id });
     const product = await Product.findOne({ _id: productId });
