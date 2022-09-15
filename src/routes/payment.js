@@ -281,6 +281,7 @@ router.post("/:id", verifyToken, async (req, res, next) => {
     const oneUser = await User.findOne({ _id: req.params.id });
     let product = req.body
     let productPrice = product.map(e => e.product.price * e.quantity)
+    console.log(productPrice)
     res.json(productPrice)
   } catch (error) {
     next(error)
