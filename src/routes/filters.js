@@ -26,7 +26,7 @@ router.get("/filters", verifyToken, async (req, res, next) => {
       pet_type,
       pet_size,
       gender,
-      is_adopted
+      is_adopted,
     );
     res.status(200).send(filter);
   } catch (err) {
