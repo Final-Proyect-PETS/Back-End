@@ -133,6 +133,24 @@ router.get(
             quantity: Number(quantity),
             unit_price: Number(product.price),
           },
+          {
+            title: "product.name1",
+            description: product.description,
+            picture_url:
+              "https://cdn-icons-png.flaticon.com/512/194/194279.png",
+            category_id: "category123", //ver que es
+            quantity: Number(quantity),
+            unit_price: Number(product.price),
+          },
+          {
+            title: "2",
+            description: product.description,
+            picture_url:
+              "https://cdn-icons-png.flaticon.com/512/194/194279.png",
+            category_id: "category123", //ver que es
+            quantity: Number(quantity),
+            unit_price: Number(product.price),
+          },
         ],
 
         external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
