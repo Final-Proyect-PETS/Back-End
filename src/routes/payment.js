@@ -128,7 +128,7 @@ router.get(
             title: product.name,
             description: product.description,
             picture_url:
-              "https://res.cloudinary.com/ddotagqdr/image/upload/v1663181677/alxsowdolh3r2ufmvom9.png",
+              "https://cdn-icons-png.flaticon.com/512/194/194279.png",
             category_id: "category123", //ver que es
             quantity: Number(quantity),
             unit_price: Number(product.price),
