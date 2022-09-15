@@ -274,6 +274,9 @@ router.post("/:id", verifyToken, async (req, res, next) => {
     console.log(products, "PRODUCTOS LLEGADOS DE CARRITO");
 
     // // Agrega credenciales//algo
+        mercadopago.configure({
+      access_token: process.env.ACCESS_TOKEN,
+    });
   } catch (error) {
     next(error)
   }
