@@ -196,7 +196,7 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
   }
 });
 
-//----carrito
+//----CARRITO---------------------------------------------------------------------------------------------------
 router.get("/market/cart/:idBuyer", verifyToken, async (req, res, next) => {
   const { idBuyer } = req.params;
   const { products } = req.body;
