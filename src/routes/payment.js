@@ -199,21 +199,28 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
 //----CARRITO---------------------------------------------------------------------------------------------------
 
 ///idUSer/OTroid
-router.get("/cartagit/:idBuyer", verifyToken, async (req, res, next) => {
-  // const { products } = req.body;
-  const id_orden = 1;
-  console.log(req.params, "IDBUYER CAMPEON");
-  // console.log(products, "PRODUCTOS LLEGADOS DE CARRITO");
 
-  // Agrega credenciales//algo
-  mercadopago.configure({
-    access_token: process.env.ACCESS_TOKEN,
-  });
+router.get("/:id", verifyToken, async (req, res, next) => {
 
   try {
-    // const oneUser = await User.findOne({ _id: idBuyer });
-    // const product = await Product.findOne({ _id: productId });
-    // const image = product.image[0];
+    console.log(req.params)
+    console.log(req.body)
+    const { products } = req.body;
+    const id_orden = 1;
+    console.log(req.params.id, "IDBUYER CAMPEON");
+    console.log(products, "PRODUCTOS LLEGADOS DE CARRITO");
+
+    // // Agrega credenciales//algo
+    mercadopago.configure({
+      access_token: process.env.ACCESS_TOKEN,
+    });
+  } catch (error) {
+    next(error)
+  }
+  try {
+    const oneUser = await User.findOne({ _id: req.params.id });
+    const product = await Product.findOne({ _id: productId });
+    const image = product.image[0];
 
     let preference = {
       items: [
