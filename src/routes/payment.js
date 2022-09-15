@@ -111,27 +111,17 @@ router.get(
     try {
       const oneUser = await User.findOne({ _id: idBuyer });
       const product = await Product.findOne({ _id: productId });
-      // console.log(product.image.flat(), "flat0");
-      // console.log(product.image.flat(1), "flat1");
-      // console.log(product.image.flat(2), "flat2");
-      // console.log(product.image[0].toString(), "en 0 y string");
-      // console.log(`${product.image[0].toString()}`, "en 0 y backtick y string");
-      // console.log(product.image[0].flat(), "flat en 0")
       const image = product.image[0];
-      console.log(image, "IMAGENPAPA");
-      console.log(image.toString(), "IMAGENPAPA.tostring");
-      console.log(String(image), "string(IMAGENPAPA");
 
       let preference = {
         items: [
           {
             title: product.name,
             description: product.description,
-            picture_url:
-              "https://cdn-icons-png.flaticon.com/512/194/194279.png",
+            picture_url: image,          //no llega nunca a donde va pic_url
             category_id: "category123", //ver que es
             quantity: Number(quantity),
-            unit_price: Number(product.price),
+            unit_price: Number(300),
           },
           {
             title: "product.name1",
@@ -140,7 +130,7 @@ router.get(
               "https://cdn-icons-png.flaticon.com/512/194/194279.png",
             category_id: "category123", //ver que es
             quantity: Number(quantity),
-            unit_price: Number(product.price),
+            unit_price: Number(50),
           },
           {
             title: "2",
@@ -149,7 +139,7 @@ router.get(
               "https://cdn-icons-png.flaticon.com/512/194/194279.png",
             category_id: "category123", //ver que es
             quantity: Number(quantity),
-            unit_price: Number(product.price),
+            unit_price: Number(89695),
           },
         ],
 
