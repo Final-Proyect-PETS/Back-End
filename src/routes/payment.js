@@ -228,7 +228,7 @@ router.post("/:id", verifyToken, async (req, res, next) => {
     const { products } = req.body;
     const id_orden = 1;
     console.log(req.params.id, "IDBUYER CAMPEON");
-    console.log(products, "PRODUCTOS LLEGADOS DE CARRITO");
+    console.log(req.body, "PRODUCTOS LLEGADOS DE CARRITO");
 
     // // Agrega credenciales//algo
     mercadopago.configure({
