@@ -5,6 +5,8 @@ const router = Router();
 const User = require("../models/users");
 const Product = require("../models/products");
 const axios = require("axios");
+const nodemailer = require("nodemailer");
+const { NMAILER_PASSWORD2 } = process.env;
 require("dotenv").config();
 
 router.get("/:idDonor/:donationAmount", verifyToken, async (req, res, next) => {
@@ -166,6 +168,10 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
     let donationDetail = await axios.get(
       `https://api.mercadopago.com/v1/payments/${payment_id}/?access_token=${process.env.ACCESS_TOKEN}`
     );
+    const userLog = await User.findOne({ _id: payment_id}).populate({
+        path: "user",
+        match: { deleted: false },
+    })
     const { date_approved, status, status_detail, transaction_amount } =
       donationDetail.data;
     if (status === "approved" && status_detail === "accredited") {
@@ -185,7 +191,37 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
         }
       );
 
-      return res.redirect("https://happytails.vercel.app/purcheasesuccessful");
+      let transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: "happytailshp@gmail.com",
+          pass: `${NMAILER_PASSWORD2}`,
+        },
+        tls: {
+          rejectUnauthorized: false,
+        },
+      });
+
+      let contentHTML = `
+      <img src = "https://cdn-icons-png.flaticon.com/512/194/194279.png" style="width:100px;"/>
+      <h1>Hola ${product.user.uername}!</h1>
+    <h2>El usuario <a href="https://happytails.vercel.app/users/${userLog._id}">${userLog.first_name} ${userLog.second_name}</a> compro ${quantity} de ${product.name}.
+              <h1> Ganancia: ${product.price}</h1>
+                        <p>Te deseamos un buen dia!</p>
+                              Atentamente HT`;
+
+
+
+
+      let info = await transporter.sendMail({
+        from: "'HappyTails'<happytailshp@gmail.com>",
+        to: product.user.email,
+        subject: "Notificacion de venta",
+        html: contentHTML,
+      });
+      return res.send(info).redirect("https://happytails.vercel.app/purcheasesuccessful");      
     }
     if (status === "in_process" || status === "pending")
       return res.redirect("https://happytails.vercel.app/purcheasepending");
