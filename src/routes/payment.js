@@ -241,7 +241,7 @@ router.post("/:id", verifyToken, async (req, res, next) => {
     const id_orden = 1;
     const oneUser = await User.findOne({ _id: req.params.id });
     let product = req.body;
-    let productPrice = product.map((e) => e.product.stock > e.quantity ? e.product.price * e.quantity : new Error("Stock insuficiente"));
+    let productPrice = product.map((e) => e.product.price * e.quantity);
     let productTotal = productPrice.reduce((prev, curr) => prev + curr, 0);
     let preference = {
       items: [
