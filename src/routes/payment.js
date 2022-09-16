@@ -83,12 +83,12 @@ router.get("/feedback/:idDonor/:donationAmount", async (req, res, next) => {
         donationAmount: transaction_amount,
       });
       await oneUser.save();
-      return res.redirect("https://happytails.vercel.app/donations");
+      return res.redirect("https://happytails.vercel.app/donationsuccessful");
     }
     if (status === "in_process" || status === "pending")
-      return res.redirect("https://happytails.vercel.app/donations");
+      return res.redirect("https://happytails.vercel.app/donationpending");
     if (status === "rejected")
-      return res.redirect("https://happytails.vercel.app/donations");
+      return res.redirect("https://happytails.vercel.app/donationcancelled");
   } catch (error) {
     next(error);
   }
@@ -346,6 +346,10 @@ router.post("/:id", verifyToken, async (req, res, next) => {
         pending: `https://happytails2.herokuapp.com/linkpayment/feedback3`,
       },
 
+
+
+
+      
       payer: {
         name: oneUser.first_name,
         surname: oneUser.last_name,
