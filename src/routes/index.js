@@ -15,7 +15,12 @@ const resetPassword = require("./resetPassword");
 const reports = require("./reports");
 const handlers = require("./handlers");
 const errorHandler = require("../utils/middlewares/errorHandler");
+
+const productsFilters  = require("./productsFilters");
+const email_buy = require("./email_buy")
+
 const postProduct = require("./posts");
+
 const router = Router();
 
 router.use(
@@ -27,14 +32,17 @@ router.use(
   messages,
   patches,
   reports,
-  postProduct
+  productsFilters,
+  postProduct,
+
 );
+
 
 router.use("/linkpayment", payments);
 router.use("/register", register);
 router.use("/login", login);
 router.use("/", loginGoogle);
-router.use("/mail", adoptionMail);
+router.use("/mail", adoptionMail, email_buy);
 router.use("/", forgotPassword, resetPassword);
 router.use("/handle", handlers);
 router.use(errorHandler);
