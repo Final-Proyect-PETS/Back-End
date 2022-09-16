@@ -152,6 +152,8 @@ router.get(
         html: contentHTML,
       });
 
+      console.log("message sent", info.messageId);
+      res.send("OK");
       let preference = {
         items: [
           {
