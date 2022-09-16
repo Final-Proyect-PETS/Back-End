@@ -11,7 +11,10 @@ router.post("/sendEmailBuy", async (req, res) => {
         money,
         first_name,
         second_name,
+        amount,
         logUser,
+        numberT,
+        link,
         thing,
         logUserEmail,
       } = req.body;
@@ -30,13 +33,16 @@ router.post("/sendEmailBuy", async (req, res) => {
       });
 
       let contentHTML = `
-      <img src = "https://cdn-icons-png.flaticon.com/512/194/194279.png" style="width:100px;"/>
-      <h1>Hola ${logUser.uername}!</h1>
-  <h2>El usuario <a href="https://happytails.vercel.app/users/${logUser._id}">${first_name} ${second_name}</a> compro ${thing}.
-              <h1> Ganancia: ${money}</h1>
+  <img src = "https://cdn-icons-png.flaticon.com/512/194/194279.png" style="width:100px;"/>
+      <h1>Hola ${logUser}!</h1>
+  <h2>El usuario <a href="${link}">${first_name} ${second_name}</a> compro ${thing}.
+              El numero de transaccion es: ${numberT}</h2> 
+              <ul>
+              <li> Cantidad: ${amount}</li>
+              <li> Ganancia: ${money}</li>
+              </ul>
                         <p>Te deseamos un buen dia!</p>
                               Atentamente HT`;
-
 
 
 
