@@ -109,54 +109,59 @@ router.get(
     mercadopago.configure({
       access_token: process.env.ACCESS_TOKEN,
     });
+    const oneUser = await User.findOne({ _id: idBuyer });
+    const product = await Product.findOne({ _id: productId });
+    const image = product.image[0];
+    console.log(image)
+    console.log(product.stock)
+    console.log(quantity)
+    if (product.stock > quantity) {
+      try {
+        let preference = {
+          items: [
+            {
+              title: product.name,
+              description: product.description,
+              picture_url: image, //no llega nunca a donde va pic_url
+              category_id: "category123", //ver que es
+              quantity: Number(quantity),
+              unit_price: Number(300),
+            },
+          ],
 
-    try {
-      const oneUser = await User.findOne({ _id: idBuyer });
-      const product = await Product.findOne({ _id: productId });
-      const image = product.image[0];
-
-      let preference = {
-        items: [
-          {
-            title: product.name,
-            description: product.description,
-            picture_url: image, //no llega nunca a donde va pic_url
-            category_id: "category123", //ver que es
-            quantity: Number(quantity),
-            unit_price: Number(300),
+          external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
+          back_urls: {
+            success: `https://happytails2.herokuapp.com/linkpayment/feedback2/${productId}/${quantity}`,
+            failure: `https://happytails2.herokuapp.com/linkpayment/feedback2/${productId}/${quantity}`,
+            pending: `https://happytails2.herokuapp.com/linkpayment/feedback2/${productId}/${quantity}`,
           },
-        ],
+          payer: {
+            name: oneUser.first_name,
+            surname: oneUser.last_name,
+            // email: oneUser.email,           // no olvidarse de descomentar este email, el de abajo esta hardcodeado
+            email: "test_user_80969189@testuser.com",
+          },
+        };
+        mercadopago.preferences
+          .create(preference)
+          .then(function (response) {
+            console.info("respondio");
+            // Este valor reemplazará el string"<%= global.id %>" en tu HTML
+            global.id = response.body.id;
 
-        external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
-        back_urls: {
-          success: `https://happytails2.herokuapp.com/linkpayment/feedback2/${productId}/${quantity}`,
-          failure: `https://happytails2.herokuapp.com/linkpayment/feedback2/${productId}/${quantity}`,
-          pending: `https://happytails2.herokuapp.com/linkpayment/feedback2/${productId}/${quantity}`,
-        },
-        payer: {
-          name: oneUser.first_name,
-          surname: oneUser.last_name,
-          // email: oneUser.email,           // no olvidarse de descomentar este email, el de abajo esta hardcodeado
-          email: "test_user_80969189@testuser.com",
-        },
-      };
-      mercadopago.preferences
-        .create(preference)
-        .then(function (response) {
-          console.info("respondio");
-          // Este valor reemplazará el string"<%= global.id %>" en tu HTML
-          global.id = response.body.id;
-
-          res.json({
-            id: global.id,
-            init_point: response.body.init_point,
+            res.json({
+              id: global.id,
+              init_point: response.body.init_point,
+            });
+          })
+          .catch(function (error) {
+            next(error);
           });
-        })
-        .catch(function (error) {
-          next(error);
-        });
-    } catch (error) {
-      next(error);
+      } catch (error) {
+        next(error);
+      }
+    } else {
+      res.status(418).json({ error: "Stock insuficiente" })
     }
   }
 );
@@ -235,7 +240,6 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
 //----CARRITO---------------------------------------------------------------------------------------------------
 
 ///idUSer/OTroid
-
 router.get("/:id", verifyToken, async (req, res, next) => {
   try {
     console.log(req.params);
@@ -252,54 +256,6 @@ router.get("/:id", verifyToken, async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-  //   try {
-  //     const oneUser = await User.findOne({ _id: req.params.id });
-  //     const product = await Product.findOne({ _id: productId });
-  //     const image = product.image[0];
-
-  //     let preference = {
-  //       items: [
-  //         {
-  //           title: "product.name",
-  //           description: "product.description",
-  //           picture_url: " image", //no llega nunca a donde va pic_url
-  //           category_id: "category123", //ver que es
-  //           quantity: Number(1),
-  //           unit_price: Number(300),
-  //         },
-  //       ],
-
-  //       external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
-  //       back_urls: {
-  //         success: `https://happytails2.herokuapp.com/linkpayment/feedback3/${productId}/${quantity}`,
-  //         failure: `https://happytails2.herokuapp.com/linkpayment/feedback3/${productId}/${quantity}`,
-  //         pending: `https://happytails2.herokuapp.com/linkpayment/feedback3/${productId}/${quantity}`,
-  //       },
-  //       payer: {
-  //         name: oneUser.first_name,
-  //         surname: oneUser.last_name,
-  //         // email: oneUser.email,           // no olvidarse de descomentar este email, el de abajo esta hardcodeado
-  //         email: "test_user_80969189@testuser.com",
-  //       },
-  //     };
-  //     mercadopago.preferences
-  //       .create(preference)
-  //       .then(function (response) {
-  //         console.info("respondio");
-  //         // Este valor reemplazará el string"<%= global.id %>" en tu HTML
-  //         global.id = response.body.id;
-
-  //         res.json({
-  //           id: global.id,
-  //           init_point: response.body.init_point,
-  //         });
-  //       })
-  //       .catch(function (error) {
-  //         next(error);
-  //       });
-  //   } catch (error) {
-  //     next(error);
-  //   }
 });
 
 router.post("/:id", verifyToken, async (req, res, next) => {
@@ -321,7 +277,7 @@ router.post("/:id", verifyToken, async (req, res, next) => {
     const id_orden = 1;
     const oneUser = await User.findOne({ _id: req.params.id });
     let product = req.body;
-    let productPrice = product.map((e) => e.product.price * e.quantity);
+    let productPrice = product.map((e) => e.product.stock > e.quantity ? e.product.price * e.quantity : res.status(418).json({ error: "Stock insuficiente" }));
     let productTotal = productPrice.reduce((prev, curr) => prev + curr, 0);
     let preference = {
       items: [
