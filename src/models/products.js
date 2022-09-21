@@ -5,11 +5,11 @@ const productSchema = new Schema(
     {
         name: {
             type: String,
-            require: true
+            required: true
         },
         price: {
             type: Number,
-            require: true
+            required: true
         },
         image: [String],
         stock: {
@@ -18,22 +18,22 @@ const productSchema = new Schema(
         },
         description: {
             type: String,
-            require: true
+            required: true
         },
         place: {
             type: String,
-            require: true
+            required: true
         },
         category: {
             type: String,
             enum: ["alimento", "servicio", "accesorio", "otro"],
-            require: true,
+            required: true,
             lowercase: true
         },
         type: {
             type: String,
             enum: ["perro", "gato", "otro"],
-            require: true,
+            required: true,
             lowercase: true
         },
         deleted: {
