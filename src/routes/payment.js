@@ -32,9 +32,9 @@ router.get("/:idDonor/:donationAmount", verifyToken, async (req, res, next) => {
       ],
       external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
       back_urls: {
-        success: `https://happytails.vercel.applinkpayment/feedback/${idDonor}/${donationAmount}`,
-        failure: `https://happytails.vercel.applinkpayment/feedback/${idDonor}/${donationAmount}`,
-        pending: `https://happytails.vercel.applinkpayment/feedback/${idDonor}/${donationAmount}`,
+        success: `https://happytails.vercel.app/linkpayment/feedback/${idDonor}/${donationAmount}`,
+        failure: `https://happytails.vercel.app/linkpayment/feedback/${idDonor}/${donationAmount}`,
+        pending: `https://happytails.vercel.app/linkpayment/feedback/${idDonor}/${donationAmount}`,
       },
       payer: {
         name: oneUser.first_name,
@@ -129,9 +129,9 @@ router.get(
 
           external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
           back_urls: {
-            success: `https://happytails.vercel.applinkpayment/feedback2/${productId}/${quantity}`,
-            failure: `https://happytails.vercel.applinkpayment/feedback2/${productId}/${quantity}`,
-            pending: `https://happytails.vercel.applinkpayment/feedback2/${productId}/${quantity}`,
+            success: `https://happytails.vercel.app/linkpayment/feedback2/${productId}/${quantity}`,
+            failure: `https://happytails.vercel.app/linkpayment/feedback2/${productId}/${quantity}`,
+            pending: `https://happytails.vercel.app/linkpayment/feedback2/${productId}/${quantity}`,
           },
           payer: {
             name: oneUser.first_name,
@@ -255,9 +255,9 @@ router.post("/:id", verifyToken, async (req, res, next) => {
 
       external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
       back_urls: {
-        success: `https://happytails.vercel.applinkpayment/feedback3`,
-        failure: `https://happytails.vercel.applinkpayment/feedback3`,
-        pending: `https://happytails.vercel.applinkpayment/feedback3`,
+        success: `https://happytails.vercel.app/linkpayment/feedback3`,
+        failure: `https://happytails.vercel.app/linkpayment/feedback3`,
+        pending: `https://happytails.vercel.app/linkpayment/feedback3`,
       },
 
       payer: {
