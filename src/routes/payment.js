@@ -32,9 +32,9 @@ router.get("/:idDonor/:donationAmount", verifyToken, async (req, res, next) => {
       ],
       external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
       back_urls: {
-        success: `back-end-production-692d.up.railway.applinkpayment/feedback/${idDonor}/${donationAmount}`,
-        failure: `back-end-production-692d.up.railway.applinkpayment/feedback/${idDonor}/${donationAmount}`,
-        pending: `back-end-production-692d.up.railway.applinkpayment/feedback/${idDonor}/${donationAmount}`,
+        success: `https://happytails.vercel.applinkpayment/feedback/${idDonor}/${donationAmount}`,
+        failure: `https://happytails.vercel.applinkpayment/feedback/${idDonor}/${donationAmount}`,
+        pending: `https://happytails.vercel.applinkpayment/feedback/${idDonor}/${donationAmount}`,
       },
       payer: {
         name: oneUser.first_name,
@@ -83,12 +83,12 @@ router.get("/feedback/:idDonor/:donationAmount", async (req, res, next) => {
         donationAmount: transaction_amount,
       });
       await oneUser.save();
-      return res.redirect("back-end-production-692d.up.railway.app/donations");
+      return res.redirect("https://happytails.vercel.app/donations");
     }
     if (status === "in_process" || status === "pending")
-      return res.redirect("back-end-production-692d.up.railway.app/donations");
+      return res.redirect("https://happytails.vercel.app/donations");
     if (status === "rejected")
-      return res.redirect("back-end-production-692d.up.railway.app/donations");
+      return res.redirect("https://happytails.vercel.app/donations");
   } catch (error) {
     next(error);
   }
@@ -129,9 +129,9 @@ router.get(
 
           external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
           back_urls: {
-            success: `back-end-production-692d.up.railway.applinkpayment/feedback2/${productId}/${quantity}`,
-            failure: `back-end-production-692d.up.railway.applinkpayment/feedback2/${productId}/${quantity}`,
-            pending: `back-end-production-692d.up.railway.applinkpayment/feedback2/${productId}/${quantity}`,
+            success: `https://happytails.vercel.applinkpayment/feedback2/${productId}/${quantity}`,
+            failure: `https://happytails.vercel.applinkpayment/feedback2/${productId}/${quantity}`,
+            pending: `https://happytails.vercel.applinkpayment/feedback2/${productId}/${quantity}`,
           },
           payer: {
             name: oneUser.first_name,
@@ -190,12 +190,12 @@ router.get("/feedback2/:productId/:quantity", async (req, res, next) => {
         }
       );
 
-      return res.redirect("back-end-production-692d.up.railway.app/purcheasesuccessful");
+      return res.redirect("https://happytails.vercel.app/purcheasesuccessful");
     }
     if (status === "in_process" || status === "pending")
-      return res.redirect("back-end-production-692d.up.railway.app/purcheasepending");
+      return res.redirect("https://happytails.vercel.app/purcheasepending");
     if (status === "rejected")
-      return res.redirect("back-end-production-692d.up.railway.app/purcheasecancelled");
+      return res.redirect("https://happytails.vercel.app/purcheasecancelled");
   } catch (error) {
     next(error);
   }
@@ -255,9 +255,9 @@ router.post("/:id", verifyToken, async (req, res, next) => {
 
       external_reference: `${id_orden}`, //`${new Date().valueOf()}`,
       back_urls: {
-        success: `back-end-production-692d.up.railway.applinkpayment/feedback3`,
-        failure: `back-end-production-692d.up.railway.applinkpayment/feedback3`,
-        pending: `back-end-production-692d.up.railway.applinkpayment/feedback3`,
+        success: `https://happytails.vercel.applinkpayment/feedback3`,
+        failure: `https://happytails.vercel.applinkpayment/feedback3`,
+        pending: `https://happytails.vercel.applinkpayment/feedback3`,
       },
 
       payer: {
@@ -313,12 +313,12 @@ router.get("/feedback3", verifyToken, async (req, res, next) => {
       //         }
       //       );
 
-      return res.redirect("back-end-production-692d.up.railway.app/purcheasesuccessful");
+      return res.redirect("https://happytails.vercel.app/purcheasesuccessful");
     }
     if (status === "in_process" || status === "pending")
-      return res.redirect("back-end-production-692d.up.railway.app/purcheasepending");
+      return res.redirect("https://happytails.vercel.app/purcheasepending");
     if (status === "rejected")
-      return res.redirect("back-end-production-692d.up.railway.app/purcheasecancelled");
+      return res.redirect("https://happytails.vercel.app/purcheasecancelled");
   } catch (error) {
     next(error);
   }
