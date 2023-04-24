@@ -226,7 +226,7 @@ router.post("/:id", verifyToken, async (req, res, next) => {
   try {
     const id_orden = 1;
     console.log(req.params.id, "IDBUYER CAMPEON");
-    // console.log(req.body, "PRODUCTOS LLEGADOS DE CARRITO");
+    console.log(req.body, "PRODUCTOS LLEGADOS DE CARRITO");
 
     // // Agrega credenciales//algo
     mercadopago.configure({
@@ -239,10 +239,7 @@ router.post("/:id", verifyToken, async (req, res, next) => {
     const id_orden = 1;
     const oneUser = await User.findOne({ _id: req.params.id });
     let product = req.body;
-    console.log(product.map((e) => e.product.stock))
-    console.log(product.map((e) => e.quantity))
-    let productPrice = product.map((e) => e.product.stock >= e.quantity ? e.product.price * e.quantity : new Error("Stock insuficiente"));
-    console.log(productPrice)
+    let productPrice = product.map((e) => e.product.price * e.quantity);
     let productTotal = productPrice.reduce((prev, curr) => prev + curr, 0);
     let preference = {
       items: [
