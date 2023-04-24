@@ -30,7 +30,7 @@ const usersSchema = new Schema(
         "Please fill a valid email address",
       ],
     },
-    password: String,
+    password: String, //si le pongo required se rompe todo a la verga
     about: String,
     telephone: String,
     place: String,
