@@ -1,10 +1,10 @@
+require("dotenv").config();
 const googlelogin = require("../utils/controllers/googlelogin");
 const { Router } = require("express");
 const router = Router();
 const User = require("../models/users");
 const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
-require("dotenv").config();
 const nodemailer = require("nodemailer");
 const { NMAILER_PASSWORD2 } = process.env;
 const client = new OAuth2Client(
@@ -28,7 +28,7 @@ router.post("/logingoogle", async (req, res, next) => {
             if (err) {
               return res.status(400).json({
                 error:
-                  "Algo salio mal en el user.findOne linea 16 controllers/googlelogin",
+                  "Algo salio mal en el user.findOne linea 27 controllers/googlelogin",
                 err,
               });
             } else {

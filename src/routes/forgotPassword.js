@@ -34,7 +34,7 @@ router.post("/forgotpassword", async (req, res, next) => {
                 rejectUnauthorized: false,
             },
         });
-        let link = `https://happytails.vercel.app/587/resetpassword/${id}/${token}`
+        let link = `back-end-production-692d.up.railway.app/587/resetpassword/${id}/${token}`
         let contentHTML = `
         
                      <h2>Hola!, ${user.first_name} ${user.last_name}. </h2> <br>
